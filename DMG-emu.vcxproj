@@ -70,6 +70,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Users\ctrah\Desktop\OS\DMG-emu\SDL2-2.30.9\include;</ExternalIncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);C:\Users\ctrah\Desktop\OS\DMG-emu\SDL2-2.30.9\lib\x64</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -108,6 +112,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies)SDL2.lib;SDL2main.lib;</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -139,6 +144,7 @@
     <ClCompile Include="MBC1.cpp" />
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Registers.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="SM83.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
@@ -152,6 +158,7 @@
     <ClInclude Include="MBC1.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Registers.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="SM83.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>

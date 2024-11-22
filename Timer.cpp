@@ -44,6 +44,7 @@ void Timer::update()
 
 void Timer::countCycles(int cycles)
 {
+	frameClock += cycles;
 	DIVClock += cycles;
 	if (TAC & 0x04)
 		TIMAClock += cycles;

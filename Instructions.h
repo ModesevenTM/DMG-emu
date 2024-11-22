@@ -50,6 +50,7 @@ public:
 	bool JR(bool cond = true);
 	void RR(uint8_t& reg);
 	void DAA();
+	void HALT();
 	void ADD(uint8_t val);
 	void ADC(uint8_t val);
 	void SUB(uint8_t val);

@@ -36,6 +36,9 @@ void Interrupts::serviceInterrupt(uint8_t interrupt)
 
 bool Interrupts::checkInterrupts()
 {
+	if(sm83->halted && IE & IF)
+		sm83->halted = false;
+
 	if (EIqueued)
 	{
 		EIqueued = false;

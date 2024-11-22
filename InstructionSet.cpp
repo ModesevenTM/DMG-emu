@@ -1,4 +1,5 @@
 #include "Instructions.h"
+#include "SM83.h"
 
 void Instructions::INC(uint8_t& reg)
 {
@@ -86,6 +87,11 @@ void Instructions::DAA()
 	registers->setFlag(registers->AF_C, correction >= 0x60);
 	registers->setFlag(registers->AF_H, false);
 	registers->setFlag(registers->AF_Z, registers->a == 0);
+}
+
+void Instructions::HALT()
+{
+	memory->sm83->halted = true;
 }
 
 void Instructions::ADD(uint8_t val)

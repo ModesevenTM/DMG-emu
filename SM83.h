@@ -7,8 +7,6 @@
 #include "Joypad.h"
 #include "PPU.h"
 
-//class Memory;
-
 class SM83
 {
 public:
@@ -20,7 +18,11 @@ public:
 	Joypad joypad;
 	PPU ppu;
 
+	bool halted = false;
+
 	SM83(Memory* memory);
+
+	void step();
 
 	int mCycles = (1 << 20);
 	int tCycles = (1 << 22);

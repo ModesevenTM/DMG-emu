@@ -659,6 +659,7 @@ void Instructions::decode(uint8_t opcode)
 	{
 		// TODO: Implement HALT
 		// may replicate the "HALT bug" later
+		HALT();
 		break;
 	}
 	case 0x77: // LD [HL], A

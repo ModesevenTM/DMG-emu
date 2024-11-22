@@ -97,11 +97,18 @@ DMG::~DMG()
 
 void DMG::start()
 {
-	
-	/*while (true)
+	while (true)
 	{
-		sm83->instructions.execute();
-	}*/
+		if(!sm83->interrupts.checkInterrupts())
+			sm83->step();
+		sm83->timer.update();
+		sm83->ppu.step();
+		if (sm83->ppu.frameReady)
+		{
+			sm83->ppu.frameReady = false;
+			// render frame here
+		}
+	}
 }
 
 void DMG::printInfo()
