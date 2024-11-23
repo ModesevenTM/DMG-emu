@@ -11,18 +11,6 @@ void Joypad::keyUp(uint8_t key, uint8_t select) {
 	sm83->interrupts.requestInterrupt(sm83->interrupts.MASK_INT_JOYPAD);
 }
 
-//void Joypad::step() {
-//	uint8_t keys = P1 & 0x30;
-//	if (keys == 0x10) P1 |= KEY_A_RIGHT;
-//	else if (keys == 0x20) P1 |= KEY_B_LEFT;
-//	else if (keys == 0x30) P1 |= KEY_A_RIGHT | KEY_B_LEFT;
-//
-//	keys = P1 & 0xC0;
-//	if (keys == 0x40) P1 |= KEY_SELECT_UP;
-//	else if (keys == 0x80) P1 |= KEY_START_DOWN;
-//	else if (keys == 0xC0) P1 |= KEY_SELECT_UP | KEY_START_DOWN;
-//}
-
 void Joypad::step()
 {
 	SDL_Event event;

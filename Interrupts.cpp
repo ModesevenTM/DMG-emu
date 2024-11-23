@@ -3,8 +3,8 @@
 
 void Interrupts::EI()
 {
-	EIqueued = true;
-	//IME = true;
+	//EIqueued = true;
+	IME = true;
 }
 
 void Interrupts::DI()

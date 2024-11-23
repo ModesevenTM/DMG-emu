@@ -21,6 +21,7 @@ void PPU::step()
 	{
 		if (sm83->timer.frameClock >= MODE_2_CHECK)
 		{
+			oamScan();
 			STAT = (STAT & 0xFC) | 3;
 		}
 		break;
@@ -119,7 +120,7 @@ void PPU::renderScanlineBG()
 			tileData = 0x8000;
 		else
 		{
-			tileData = 0x8800;
+			tileData = 0x9000;
 			signedData = true;
 		}
 
@@ -230,55 +231,11 @@ void PPU::renderScanlineOBJ()
 
 				Color color = COLORS[(obj.flags & 0x10) ? ((OBP1 >> (colorNum * 2)) & 0x03) : ((OBP0 >> (colorNum * 2)) & 0x03)];
 
-				frameBuffer[(LY * 160 + obj.x + k) * 4] = color.r;
-				frameBuffer[(LY * 160 + obj.x + k) * 4 + 1] = color.g;
-				frameBuffer[(LY * 160 + obj.x + k) * 4 + 2] = color.b;
-				frameBuffer[(LY * 160 + obj.x + k) * 4 + 3] = color.a;
+				frameBuffer[(LY * 160 + (obj.x - 8) + k) * 4] = color.r;
+				frameBuffer[(LY * 160 + (obj.x - 8) + k) * 4 + 1] = color.g;
+				frameBuffer[(LY * 160 + (obj.x - 8) + k) * 4 + 2] = color.b;
+				frameBuffer[(LY * 160 + (obj.x - 8) + k) * 4 + 3] = color.a;
 			}
 		}
 	}
 }
-
-//void PPU::renderScanlineOBJ()
-//{
-//	if (LCDC & 0x02)
-//	{
-//	 	for (int i = 0; i < 40; i++)
-//	 	{
-//	 		uint8_t y = sm83->memory->oam[i * 4] - 16;
-//	 		uint8_t x = sm83->memory->oam[i * 4 + 1] - 8;
-//	 		uint8_t tileNum = sm83->memory->oam[i * 4 + 2];
-//	 		uint8_t flags = sm83->memory->oam[i * 4 + 3];
-//	
-//	 		uint16_t tileAddr = 0x8000 + tileNum * 16;
-//			uint8_t height = LCDC & 0x04 ? 16 : 8;
-//	
-//	 		for (int j = 0; j < height; j++)
-//	 		{
-//	 			uint8_t line = y + j;
-//	 			if (line < 0 || line >= 144)
-//	 				continue;
-//	
-//	 			uint8_t data1 = sm83->memory->read8(tileAddr + j * 2);
-//	 			uint8_t data2 = sm83->memory->read8(tileAddr + j * 2 + 1);
-//	
-//	 			for (int k = 0; k < 8; k++)
-//	 			{
-//	 				uint8_t colorBit = LCDC & 0x20 ? k : 7 - k;
-//	 				uint8_t colorNum = ((data2 >> colorBit) & 0x01) << 1;
-//	 				colorNum |= (data1 >> colorBit) & 0x01;
-//	
-//	 				if (colorNum == 0)
-//	 					continue;
-//	
-//	 				Color color = COLORS[(flags & 0x10) ? ((OBP1 >> (colorNum * 2)) & 0x03) : ((OBP0 >> (colorNum * 2)) & 0x03)];
-//	
-//	 				frameBuffer[(line * 160 + x + k) * 4] = color.r;
-//	 				frameBuffer[(line * 160 + x + k) * 4 + 1] = color.g;
-//	 				frameBuffer[(line * 160 + x + k) * 4 + 2] = color.b;
-//	 				frameBuffer[(line * 160 + x + k) * 4 + 3] = color.a;
-//	 			}
-//	 		}
-//	 	}
-//	}
-//}

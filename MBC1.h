@@ -11,8 +11,8 @@ public:
 	uint8_t* exram = nullptr;
 	
 	uint8_t RAMG = 0;
-	uint8_t BANK1;
-	uint8_t BANK2;
-	uint8_t MODE;
+	uint8_t BANK1 = 0;
+	uint8_t BANK2 = 0;
+	uint8_t MODE = 0;
 };
 
