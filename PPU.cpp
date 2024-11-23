@@ -167,7 +167,7 @@ void PPU::renderScanlineWindow()
 	 		tileData = 0x8000;
 	 	else
 	 	{
-	 		tileData = 0x8800;
+	 		tileData = 0x9000;
 	 		signedData = true;
 	 	}
 	
