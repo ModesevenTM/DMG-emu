@@ -16,7 +16,7 @@ uint8_t MBC1::read8(uint16_t add)
 	if (add < 0x4000)
 		return rom[add + MODE * (BANK2 << 5) * 0x4000];
 	else if (add < 0x8000)
-		return rom[add + (BANK1 | (BANK2 << 5)) * 0x4000];
+		return rom[add - 0x4000 + (BANK1 | (BANK2 << 5)) * 0x4000];
 	else if (add >= 0xA000 && add < 0xC000)
 	{
 		if (RAMG == 0x0A)
