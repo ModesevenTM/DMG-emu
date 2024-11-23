@@ -142,7 +142,7 @@ void PPU::renderScanlineBG()
 			uint8_t data1 = sm83->memory->read8(tileAddr + line * 2);
 			uint8_t data2 = sm83->memory->read8(tileAddr + line * 2 + 1);
 
-			uint8_t colorBit = 7 - (x % 8);
+			uint8_t colorBit = 7 - ((SCX + x) % 8);
 			uint8_t colorNum = ((data2 >> colorBit) & 0x01) << 1;
 			colorNum |= (data1 >> colorBit) & 0x01;
 
@@ -189,7 +189,7 @@ void PPU::renderScanlineWindow()
 	 		uint8_t data1 = sm83->memory->read8(tileAddr + line * 2);
 	 		uint8_t data2 = sm83->memory->read8(tileAddr + line * 2 + 1);
 	
-	 		uint8_t colorBit = 7 - (x % 8);
+	 		uint8_t colorBit = 7 - ((WX - 7 + x) % 8);
 	 		uint8_t colorNum = ((data2 >> colorBit) & 0x01) << 1;
 	 		colorNum |= (data1 >> colorBit) & 0x01;
 	
