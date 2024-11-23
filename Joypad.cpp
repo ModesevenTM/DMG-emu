@@ -2,12 +2,12 @@
 #include "SM83.h"
 
 void Joypad::keyDown(uint8_t key, uint8_t select) {
-	P1 &= ~(key | select);
+	select == SELECT_DPAD ? DPad &= ~key : buttons &= ~key;
 	sm83->interrupts.requestInterrupt(sm83->interrupts.MASK_INT_JOYPAD);
 }
 
 void Joypad::keyUp(uint8_t key, uint8_t select) {
-	P1 |= key | select;
+	select == SELECT_DPAD ? DPad |= key : buttons |= key;
 	sm83->interrupts.requestInterrupt(sm83->interrupts.MASK_INT_JOYPAD);
 }
 

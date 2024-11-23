@@ -17,6 +17,8 @@ private:
 public:
 	SM83* sm83;
 	uint8_t P1 = 0xCF; // 0xFF00
+	uint8_t DPad = 0xFF;
+	uint8_t buttons = 0xFF;
 	void keyDown(uint8_t key, uint8_t select);
 	void keyUp(uint8_t key, uint8_t select);
 	void step();

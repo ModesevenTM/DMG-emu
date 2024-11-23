@@ -32,7 +32,12 @@ uint8_t Memory::read8(uint16_t add)
 		{
 		case 0xFF00:				// Joypad
 		{
-			if ((sm83->joypad.P1 & 0x30) == 0x30)
+			switch (sm83->joypad.P1 & 0x30)
+			{
+			case 0x30: return 0x3F;
+			case 0x20: return 0x20 | (sm83->joypad.DPad & 0x0F);
+			case 0x10: return 0x10 | (sm83->joypad.buttons & 0x0F);
+			}
 				return 0x3F;
 			return sm83->joypad.P1;	
 		}
@@ -87,7 +92,7 @@ void Memory::write8(uint16_t add, uint8_t val)
 	{
 		switch (add)
 		{
-		case 0xFF00: sm83->joypad.P1 = (sm83->joypad.P1 & 0x0F) | (val & 0xF0); break;	// Joypad
+		case 0xFF00: sm83->joypad.P1 = (sm83->joypad.P1 & 0x0F) | val; break;	// Joypad
 		//case 0xFF01: break;	// Serial Transfer Data - not implemented
 		//case 0xFF02: break;	// Serial Transfer Control - not implemented
 		case 0xFF04: sm83->timer.DIV = 0; break;	// Divider Register
