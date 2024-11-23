@@ -8,12 +8,16 @@ SM83::SM83(Memory* memory) : memory(memory) {
 
 	interrupts.sm83 = this;
 	timer.sm83 = this;
+	ppu.sm83 = this;
+	memory->sm83 = this;
+	joypad.sm83 = this;
 };
 
 void SM83::step() {
 	if (halted) timer.countCycles(1);
-
-	uint8_t opcode = memory->read8(registers.pc);
-	registers.pc++;
-	instructions.decode(opcode);
+	else {
+		uint8_t opcode = memory->read8(registers.pc);
+		registers.pc++;
+		instructions.decode(opcode);
+	}
 }

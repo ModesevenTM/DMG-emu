@@ -10,7 +10,7 @@ public:
 	uint8_t vram[0x2000];
 	uint8_t wram[0x2000];
 	uint8_t oam[0xA0];
-	uint8_t hram[0x1F];
+	uint8_t hram[0x7F];
 
 	uint8_t SB = 0x00;		// 0xFF01 - TODO: PLACEHOLDER
 	uint8_t SC = 0x7E;		// 0xFF02 - TODO: PLACEHOLDER

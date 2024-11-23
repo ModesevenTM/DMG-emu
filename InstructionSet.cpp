@@ -236,8 +236,8 @@ void Instructions::LDHL(int8_t val)
 	uint16_t result = registers->sp + val;
 	registers->setFlag(registers->AF_Z, false);
 	registers->setFlag(registers->AF_N, false);
-	registers->setFlag(registers->AF_H, (registers->hl & 0x0F) + (val & 0x0F) > 0x0F);
-	registers->setFlag(registers->AF_C, (registers->hl & 0xFF) + (val & 0xFF) > 0xFF);
+	registers->setFlag(registers->AF_H, (registers->sp & 0x0F) + (val & 0x0F) > 0x0F);
+	registers->setFlag(registers->AF_C, (registers->sp & 0xFF) + (val & 0xFF) > 0xFF);
 	registers->hl = result;
 }
 
@@ -278,7 +278,7 @@ void Instructions::SRL(uint8_t& reg)
 	registers->setFlag(registers->AF_H, false);
 }
 
-void Instructions::BIT(uint8_t reg, uint8_t bit)
+void Instructions::BIT(uint8_t bit, uint8_t reg)
 {
 	registers->setFlag(registers->AF_Z, (reg & (1 << bit)) == 0);
 	registers->setFlag(registers->AF_N, false);

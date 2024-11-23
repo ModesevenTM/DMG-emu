@@ -9,5 +9,6 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 	DMG emu(argv[1]);
+	emu.start();
     return 0;
 }

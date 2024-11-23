@@ -7,6 +7,8 @@
 #include "MBC0.h"
 #include "MBC1.h"
 #include "SM83.h"
+#include "PPU.h"
+#include "Renderer.h"
 
 class DMG
 {
@@ -15,6 +17,8 @@ private:
 public:	
 	SM83* sm83 = nullptr;
 	Memory* memory = nullptr;
+	PPU* ppu = nullptr;
+	Renderer* renderer = nullptr;
 	uint8_t romBanks;
 	uint8_t ramBanks;
 

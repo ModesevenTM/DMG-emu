@@ -85,19 +85,21 @@ DMG::DMG(std::string file)
 	}
 
 	sm83 = new SM83(memory);
+	renderer = new Renderer(&sm83->ppu);
 
 	printInfo();
 }
 
 DMG::~DMG()
 {
+	delete renderer;
 	delete sm83;
 	if(memory) delete memory;
 }
 
 void DMG::start()
 {
-	while (true)
+	while (!sm83->ended)
 	{
 		if(!sm83->interrupts.checkInterrupts())
 			sm83->step();
@@ -106,8 +108,9 @@ void DMG::start()
 		if (sm83->ppu.frameReady)
 		{
 			sm83->ppu.frameReady = false;
-			// render frame here
+			renderer->render();
 		}
+		sm83->joypad.step();
 	}
 }
 

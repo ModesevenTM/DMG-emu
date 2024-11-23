@@ -59,6 +59,7 @@ uint8_t Memory::read8(uint16_t add)
 		return hram[add - 0xFF80];	// High RAM
 	else if (add == 0xFFFF)
 		return sm83->interrupts.IE;	// Interrupt Enable Register
+	return 0xFF;
 }
 
 void Memory::write8(uint16_t add, uint8_t val)

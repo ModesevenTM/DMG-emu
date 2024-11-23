@@ -1,16 +1,26 @@
 #pragma once
 #include <cstdint>
+#include <queue>
 
 class SM83;
 
 class PPU
 {
 private:
-	union Color {
+	union Color 
+	{
 		struct {
 			uint8_t r, g, b, a;
 		};
 		uint8_t col[4];
+	};
+
+	struct Object
+	{
+		uint8_t y;
+		uint8_t x;
+		uint8_t tileNum;
+		uint8_t flags;
 	};
 public:
 	const int FRAME_TIME = 17556;
@@ -39,11 +49,17 @@ public:
 
 	bool frameReady = false;
 
-	uint8_t frameBuffer[160 * 144 * 4];
+	std::queue<Object> objQueue;
+	uint8_t frameBuffer[160 * 144 * 4] = {};
 
 	SM83* sm83;
 
 	void compareLY_LYC();
 	void step();
+	void oamScan();
+	void renderScanline();
+	void renderScanlineBG();
+	void renderScanlineWindow();
+	void renderScanlineOBJ();
 };
 

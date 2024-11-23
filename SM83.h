@@ -19,6 +19,7 @@ public:
 	PPU ppu;
 
 	bool halted = false;
+	bool ended = false;
 
 	SM83(Memory* memory);
 

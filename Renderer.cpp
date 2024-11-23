@@ -20,6 +20,10 @@ Renderer::~Renderer()
 
 void Renderer::render()
 {
+	// limit frame rate to 4194304 / 70224 = 59.7 fps
+	SDL_Delay(1000 / 60);
+
+	SDL_SetRenderTarget(renderer, texture);
 	SDL_UpdateTexture(texture, NULL, ppu->frameBuffer, SCREEN_WIDTH * 4);
 	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, texture, NULL, NULL);
