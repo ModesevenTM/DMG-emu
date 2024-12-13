@@ -20,12 +20,16 @@ Renderer::~Renderer()
 
 void Renderer::render()
 {
-	// limit frame rate to 4194304 / 70224 = 59.7 fps
-	SDL_Delay(1000 / 60);
+	frameEnd = std::chrono::high_resolution_clock::now();
+	auto elapsedTime = std::chrono::duration<double, std::milli>(frameEnd - frameStart).count();
+	if (elapsedTime < FRAME_TIME)
+		std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(FRAME_TIME - elapsedTime));
+	frameStart = std::chrono::high_resolution_clock::now();
 
 	SDL_SetRenderTarget(renderer, texture);
 	SDL_UpdateTexture(texture, NULL, ppu->frameBuffer, SCREEN_WIDTH * 4);
 	SDL_RenderClear(renderer);
 	SDL_RenderCopy(renderer, texture, NULL, NULL);
 	SDL_RenderPresent(renderer);
+
 }

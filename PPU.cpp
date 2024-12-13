@@ -104,6 +104,7 @@ void PPU::oamScan()
 
 void PPU::renderScanline()
 {
+	if (LY >= 144) return;
 	renderScanlineBG();
 	renderScanlineWindow();
 	renderScanlineOBJ();
@@ -158,6 +159,9 @@ void PPU::renderScanlineBG()
 
 void PPU::renderScanlineWindow()
 {
+	if (WX > 166 || WY > 143)
+		return;
+
 	if (LCDC & 0x20)
 	{
 		uint16_t tileData, bgMap;
@@ -179,7 +183,7 @@ void PPU::renderScanlineWindow()
 	 	uint8_t y = LY + WY;
 	 	uint16_t tileRow = (y / 8) * 32;
 	
-	 	for (int x = 0; x < 160; x++)
+	 	for (int x = (WX >= 7 ? WX - 7 : 0); x < (WX >= 7 ? 160 : 160 + WX - 7); x++)
 	 	{
 	 		uint8_t tileCol = (WX - 7 + x) / 8;
 	 		uint8_t tileNum = sm83->memory->read8(bgMap + tileRow + tileCol);

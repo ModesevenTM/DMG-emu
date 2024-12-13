@@ -657,8 +657,6 @@ void Instructions::decode(uint8_t opcode)
 	}
 	case 0x76: // HALT
 	{
-		// TODO: Implement HALT
-		// may replicate the "HALT bug" later
 		HALT();
 		break;
 	}
