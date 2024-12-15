@@ -9,15 +9,14 @@ class Renderer
 public:
 	const int SCREEN_WIDTH = 160;
 	const int SCREEN_HEIGHT = 144;
-	const double FRAME_TIME = 1000.0 / 60.0;
+	const int64_t FRAME_TIME = 1000000000 / 60;
 
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Texture* texture;
 	PPU* ppu;
 
-	std::chrono::high_resolution_clock::time_point frameStart;
-	std::chrono::high_resolution_clock::time_point frameEnd;
+	std::chrono::steady_clock::time_point timePoint = std::chrono::steady_clock::now();
 
 	Renderer(PPU* ppu);
 	~Renderer();

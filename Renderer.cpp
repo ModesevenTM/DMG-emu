@@ -20,11 +20,8 @@ Renderer::~Renderer()
 
 void Renderer::render()
 {
-	frameEnd = std::chrono::high_resolution_clock::now();
-	auto elapsedTime = std::chrono::duration<double, std::milli>(frameEnd - frameStart).count();
-	if (elapsedTime < FRAME_TIME)
-		std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(FRAME_TIME - elapsedTime));
-	frameStart = std::chrono::high_resolution_clock::now();
+	timePoint += std::chrono::nanoseconds{FRAME_TIME};
+	std::this_thread::sleep_until(timePoint);
 
 	SDL_SetRenderTarget(renderer, texture);
 	SDL_UpdateTexture(texture, NULL, ppu->frameBuffer, SCREEN_WIDTH * 4);
