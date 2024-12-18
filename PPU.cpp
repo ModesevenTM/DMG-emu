@@ -135,7 +135,7 @@ void PPU::renderScanlineBG()
 
 		for (int x = 0; x < 160; x++)
 		{
-			uint8_t tileCol = (SCX + x) / 8;
+			uint8_t tileCol = (uint8_t)(SCX + x) / 8;
 			uint8_t tileNum = sm83->memory->read8(bgMap + tileRow + tileCol);
 			uint16_t tileAddr = tileData + (signedData ? (int8_t)tileNum : tileNum) * 16;
 
@@ -159,7 +159,7 @@ void PPU::renderScanlineBG()
 
 void PPU::renderScanlineWindow()
 {
-	if (WX > 166 || WY > 143)
+	if (WX > 166 || WY > 143 || WY > LY)
 		return;
 
 	if (LCDC & 0x20)
@@ -180,12 +180,12 @@ void PPU::renderScanlineWindow()
 	 	else
 	 		bgMap = 0x9800;
 	
-	 	uint8_t y = LY + WY;
+	 	uint8_t y = LY - WY;
 	 	uint16_t tileRow = (y / 8) * 32;
 	
 	 	for (int x = (WX >= 7 ? WX - 7 : 0); x < (WX >= 7 ? 160 : 160 + WX - 7); x++)
 	 	{
-	 		uint8_t tileCol = (WX - 7 + x) / 8;
+	 		uint8_t tileCol = (x - WX + 7) / 8;
 	 		uint8_t tileNum = sm83->memory->read8(bgMap + tileRow + tileCol);
 	 		uint16_t tileAddr = tileData + (signedData ? (int8_t)tileNum : tileNum) * 16;
 	
@@ -193,7 +193,7 @@ void PPU::renderScanlineWindow()
 	 		uint8_t data1 = sm83->memory->read8(tileAddr + line * 2);
 	 		uint8_t data2 = sm83->memory->read8(tileAddr + line * 2 + 1);
 	
-	 		uint8_t colorBit = 7 - ((WX - 7 + x) % 8);
+	 		uint8_t colorBit = 7 - ((x - WX + 7) % 8);
 	 		uint8_t colorNum = ((data2 >> colorBit) & 0x01) << 1;
 	 		colorNum |= (data1 >> colorBit) & 0x01;
 	
