@@ -18,7 +18,7 @@ public:
 	SM83* sm83;
 
 	Memory(uint8_t* rom);
-	~Memory();
+	virtual ~Memory();
 
 	virtual uint8_t read8(uint16_t add);
 	virtual void write8(uint16_t add, uint8_t val);
