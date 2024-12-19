@@ -23,7 +23,6 @@ private:
 		uint8_t flags;
 	};
 public:
-	const int FRAME_TIME = 17556;
 	const int MODE_2_CHECK = 20;
 	const int MODE_3_CHECK = 63;
 	const int ROW_TIME = 114;

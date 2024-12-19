@@ -99,8 +99,8 @@ void Instructions::decode(uint8_t opcode)
 	}
 	case 0x10: // STOP
 	{
-		// TODO: Implement STOP
 		// 2-byte instruction, second byte not always ignored
+		// Practically hardly used
 		break;
 	}
 	case 0x11: // LD DE, n16
@@ -143,8 +143,6 @@ void Instructions::decode(uint8_t opcode)
 	}
 	case 0x18: // JR e8
 	{
-		/*int8_t offset = memory->read8(registers->pc);
-		registers->pc += offset + 1;*/
 		JR();
 		break;
 	}
@@ -187,10 +185,6 @@ void Instructions::decode(uint8_t opcode)
 	}
 	case 0x20: // JR NZ, e8
 	{
-		/*int8_t offset = memory->read8(registers->pc);
-		registers->pc++;
-		if (!registers->getFlag(registers->AF_Z))
-			registers->pc += offset;*/
 		if(JR(!registers->getFlag(registers->AF_Z)))
 			timer->countCycles(JR_COND_TRUE);
 		break;
@@ -235,10 +229,6 @@ void Instructions::decode(uint8_t opcode)
 	}
 	case 0x28: // JR Z, e8
 	{
-		/*int8_t offset = memory->read8(registers->pc);
-		registers->pc++;
-		if (registers->getFlag(registers->AF_Z))
-			registers->pc += offset;*/
 		if(JR(registers->getFlag(registers->AF_Z)))
 			timer->countCycles(JR_COND_TRUE);
 		break;
@@ -284,10 +274,6 @@ void Instructions::decode(uint8_t opcode)
 	}
 	case 0x30: // JR NC, e8
 	{
-		/*int8_t offset = memory->read8(registers->pc);
-		registers->pc++;
-		if (!registers->getFlag(registers->AF_C))
-			registers->pc += offset;*/
 		if(JR(!registers->getFlag(registers->AF_C)))
 			timer->countCycles(JR_COND_TRUE);
 		break;
@@ -338,10 +324,6 @@ void Instructions::decode(uint8_t opcode)
 	}
 	case 0x38: // JR C, e8
 	{
-		/*int8_t offset = memory->read8(registers->pc);
-		registers->pc++;
-		if (registers->getFlag(registers->AF_C))
-			registers->pc += offset;*/
 		if(JR(registers->getFlag(registers->AF_C)))
 			timer->countCycles(JR_COND_TRUE);
 		break;

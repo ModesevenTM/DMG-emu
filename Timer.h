@@ -12,7 +12,7 @@ public:
 	int TIMAClock = 0;
 	int frameClock = 0;
 
-	uint8_t DIV = 0xAB; // 0xFF04 - TODO: MIGHT BE WRONG
+	uint8_t DIV = 0xAB; // 0xFF04
 	uint8_t TIMA = 0;	// 0xFF05
 	uint8_t TMA = 0;	// 0xFF06
 	uint8_t TAC = 0xF8;	// 0xFF07

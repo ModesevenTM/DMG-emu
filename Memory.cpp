@@ -41,8 +41,8 @@ uint8_t Memory::read8(uint16_t add)
 				return 0x3F;
 			return sm83->joypad.P1;	
 		}
-		case 0xFF01: return 0xFF;	// Serial Transfer Data - not implemented
-		case 0xFF02: return 0xFF;	// Serial Transfer Control - not implemented
+		//case 0xFF01: return 0xFF;	// Serial Transfer Data - not implemented
+		//case 0xFF02: return 0xFF;	// Serial Transfer Control - not implemented
 		case 0xFF04: return sm83->timer.DIV;	// Divider Register
 		case 0xFF05: return sm83->timer.TIMA;	// Timer Counter
 		case 0xFF06: return sm83->timer.TMA;	// Timer Modulo

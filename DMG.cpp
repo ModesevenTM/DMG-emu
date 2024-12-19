@@ -63,22 +63,16 @@ DMG::DMG(std::string file)
 	// MBC type
 	switch (rom[0x147])
 	{
-	case 0x00:
+	case 0x00:	// MBC0
+	case 0x08:	// MBC0 + RAM 
+	case 0x09:	// MBC0 + RAM + BATTERY
 		memory = new MBC0(rom);
 		break;
-	case 0x01:
+	case 0x01:	// MBC1
+	case 0x02:	// MBC1 + RAM
+	case 0x03:	// MBC1 + RAM + BATTERY
 		memory = new MBC1(rom, romBanks, ramBanks);
 		break;
-	case 0x02:
-		memory = new MBC1(rom, romBanks, ramBanks);
-		break;
-	case 0x03:
-		memory = new MBC1(rom, romBanks, ramBanks);
-		break;
-		/*case 0x05:
-			memory = new MBC2(rom, nullptr, romBanks, ramBanks);
-			break;
-		*/
 	default:
 		throw std::runtime_error("Unsupported MBC type");
 		break;
@@ -120,5 +114,4 @@ void DMG::printInfo()
 	std::cout << "ROM banks: " << (int)romBanks << std::endl;
 	std::cout << "RAM banks: " << (int)ramBanks << std::endl;
 	std::cout << "MBC type: " << (int)memory->rom[0x147] << std::endl;
-
 }
