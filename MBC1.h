@@ -13,7 +13,7 @@ public:
 	uint8_t ramBanks = 0;
 
 	uint8_t RAMG = 0;
-	uint8_t BANK1 = 0;
+	uint8_t BANK1 = 1;
 	uint8_t BANK2 = 0;
 	uint8_t MODE = 0;
 };
