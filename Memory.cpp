@@ -132,9 +132,9 @@ void Memory::write8(uint16_t add, uint8_t val)
 	}
 	else if (add >= 0xFF80 && add < 0xFFFF)
 		hram[add - 0xFF80] = val;	// High RAM
-	else
+	else if (add == 0xFFFF)
 		sm83->interrupts.IE = val & 0x1F;	// Interrupt Enable
-
+	else return;
 }
 
 uint16_t Memory::read16(uint16_t add)

@@ -25,7 +25,7 @@ uint8_t MBC1::read8(uint16_t add)
 			return 0xFF;
 	}
 	else
-		__super::read8(add);
+		return __super::read8(add);
 }
 
 void MBC1::write8(uint16_t add, uint8_t val)
