@@ -15,11 +15,13 @@ void PPU::compareLY_LYC()
 
 void PPU::step()
 {
+	if (!(LCDC & 0x80)) return;
+
 	switch (STAT & 0x03)
 	{
 	case 2: // OAM Scan
 	{
-		if (sm83->timer.frameClock >= MODE_2_CHECK)
+		if (sm83->timer.frameClock % ROW_TIME >= MODE_2_CHECK)
 		{
 			oamScan();
 			STAT = (STAT & 0xFC) | 3;
@@ -28,7 +30,7 @@ void PPU::step()
 	}
 	case 3:	// Drawing
 	{
-		if (sm83->timer.frameClock >= MODE_3_CHECK)
+		if (sm83->timer.frameClock % ROW_TIME >= MODE_3_CHECK)
 		{
 			renderScanline();
 			if (LY == 143)
@@ -41,7 +43,7 @@ void PPU::step()
 	}
 	case 0:	// HBlank
 	{
-		if (sm83->timer.frameClock >= ROW_TIME)
+		if (sm83->timer.frameClock >= ROW_TIME * (LY + 1))
 		{
 			LY++;
 			compareLY_LYC();
@@ -62,7 +64,7 @@ void PPU::step()
 	}
 	case 1:	// VBlank
 	{
-		if (sm83->timer.frameClock >= ROW_TIME)
+		if (sm83->timer.frameClock >= ROW_TIME * (LY + 1))
 		{
 			LY++;
 			compareLY_LYC();
@@ -78,7 +80,7 @@ void PPU::step()
 	}
 	}
 
-	sm83->timer.frameClock %= ROW_TIME;
+	sm83->timer.frameClock %= FRAME_TIME;
 }
 
 void PPU::oamScan()

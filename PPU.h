@@ -26,6 +26,7 @@ public:
 	const int MODE_2_CHECK = 20;
 	const int MODE_3_CHECK = 63;
 	const int ROW_TIME = 114;
+	const int FRAME_TIME = 17556;
 
 	const Color COLORS[4] = {
 		{ 255, 255, 255, 255 },
