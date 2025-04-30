@@ -24,87 +24,93 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DMG-emu.cpp">
+    <ClCompile Include="src\Audio.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="SM83.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="Registers.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="Interrupts.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="InstructionSet.cpp">
+    <ClCompile Include="src\Instructions.cpp">
       <Filter>Pliki źródłowe\Instructions</Filter>
     </ClCompile>
-    <ClCompile Include="Instructions.cpp">
+    <ClCompile Include="src\InstructionsCB.cpp">
       <Filter>Pliki źródłowe\Instructions</Filter>
     </ClCompile>
-    <ClCompile Include="InstructionsCB.cpp">
+    <ClCompile Include="src\InstructionSet.cpp">
       <Filter>Pliki źródłowe\Instructions</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="DMG.cpp">
-      <Filter>Pliki źródłowe</Filter>
-    </ClCompile>
-    <ClCompile Include="Memory.cpp">
+    <ClCompile Include="src\MBC0.cpp">
       <Filter>Pliki źródłowe\Memory</Filter>
     </ClCompile>
-    <ClCompile Include="MBC0.cpp">
+    <ClCompile Include="src\MBC1.cpp">
       <Filter>Pliki źródłowe\Memory</Filter>
     </ClCompile>
-    <ClCompile Include="MBC1.cpp">
+    <ClCompile Include="src\Memory.cpp">
       <Filter>Pliki źródłowe\Memory</Filter>
     </ClCompile>
-    <ClCompile Include="Joypad.cpp">
+    <ClCompile Include="src\DMG.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="PPU.cpp">
+    <ClCompile Include="src\DMG-emu.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
+    <ClCompile Include="src\Interrupts.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Joypad.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PPU.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Registers.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SM83.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Timer.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SM83.h">
+    <ClInclude Include="src\Audio.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Registers.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="Instructions.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="Interrupts.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="DMG.h">
-      <Filter>Pliki nagłówkowe</Filter>
-    </ClInclude>
-    <ClInclude Include="MBC0.h">
+    <ClInclude Include="src\MBC0.h">
       <Filter>Pliki nagłówkowe\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="MBC1.h">
+    <ClInclude Include="src\MBC1.h">
       <Filter>Pliki nagłówkowe\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="Memory.h">
+    <ClInclude Include="src\Memory.h">
       <Filter>Pliki nagłówkowe\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="Joypad.h">
+    <ClInclude Include="src\DMG.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="PPU.h">
+    <ClInclude Include="src\Instructions.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
+    <ClInclude Include="src\Interrupts.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Joypad.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PPU.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Registers.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="src\SM83.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Timer.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
   </ItemGroup>

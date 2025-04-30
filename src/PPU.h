@@ -17,10 +17,10 @@ private:
 
 	struct Object
 	{
-		uint8_t y;
-		uint8_t x;
-		uint8_t tileNum;
-		uint8_t flags;
+		uint8_t& y;
+		uint8_t& x;
+		uint8_t& tileNum;
+		uint8_t& flags;
 	};
 public:
 	const int MODE_2_CHECK = 20;
@@ -51,6 +51,7 @@ public:
 
 	std::queue<Object> objQueue;
 	uint8_t frameBuffer[160 * 144 * 4] = {};
+	uint8_t colorVals[160 * 144] = {};
 
 	SM83* sm83;
 
@@ -58,6 +59,7 @@ public:
 	void step();
 	void oamScan();
 	void renderScanline();
+	void renderBlankScanline();
 	void renderScanlineBG();
 	void renderScanlineWindow();
 	void renderScanlineOBJ();

@@ -26,6 +26,23 @@ uint8_t Memory::read8(uint16_t add)
 		return oam[add - 0xFE00];	// Object Attribute Memory
 	else if (add < 0xFF00)
 		return 0xFF;				// not usable
+	else if (add >= 0xFF10 && add <= 0xFF3F) // Sound
+	{
+		if (add >= 0xFF10 && add <= 0xFF14)
+			return sm83->apu.NR1[add - 0xFF10];	// Channel 1
+		else if (add >= 0xFF16 && add <= 0xFF19)
+			return sm83->apu.NR2[add - 0xFF16];	// Channel 2
+		else if (add >= 0xFF1A && add <= 0xFF1E)
+			return sm83->apu.NR3[add - 0xFF1A];	// Channel 3
+		else if (add >= 0xFF20 && add <= 0xFF23)
+			return sm83->apu.NR4[add - 0xFF20];	// Channel 4
+		else if (add >= 0xFF24 && add <= 0xFF26)
+			return sm83->apu.NR5[add - 0xFF24];	// Control registers
+		else if (add >= 0xFF30 && add <= 0xFF3F)
+			return sm83->apu.WAV[add - 0xFF30];	// Wave Pattern RAM
+		else
+		return 0xFF;
+	}				
 	else if (add < 0xFF80)
 	{
 		switch (add)
@@ -48,7 +65,6 @@ uint8_t Memory::read8(uint16_t add)
 		case 0xFF06: return sm83->timer.TMA;	// Timer Modulo
 		case 0xFF07: return sm83->timer.TAC;	// Timer Control
 		case 0xFF0F: return sm83->interrupts.IF;	// Interrupt Flag
-		//case 0xFF10 ... 0xFF26: return 0xFF;	// Sound - not implemented
 		case 0xFF40: return sm83->ppu.LCDC;	// LCDC
 		case 0xFF41: return sm83->ppu.STAT;	// STAT
 		case 0xFF42: return sm83->ppu.SCY;	// SCY
@@ -88,6 +104,22 @@ void Memory::write8(uint16_t add, uint8_t val)
 		oam[add - 0xFE00] = val;	// Object Attribute Memory
 	else if (add < 0xFF00)
 		return;						// not usable
+	else if (add >= 0xFF10 && add <= 0xFF3F) // Sound
+	{
+		if (add >= 0xFF10 && add <= 0xFF14)
+			sm83->apu.NR1[add - 0xFF10] = val;	// Channel 1
+		else if (add >= 0xFF16 && add <= 0xFF19)
+			sm83->apu.NR2[add - 0xFF16] = val;	// Channel 2
+		else if (add >= 0xFF1A && add <= 0xFF1E)
+			sm83->apu.NR3[add - 0xFF1A] = val;	// Channel 3
+		else if (add >= 0xFF20 && add <= 0xFF23)
+			sm83->apu.NR4[add - 0xFF20] = val;	// Channel 4
+		else if (add >= 0xFF24 && add <= 0xFF26)
+			sm83->apu.NR5[add - 0xFF24] = val;	// Control registers
+		else if (add >= 0xFF30 && add <= 0xFF3F)
+			sm83->apu.WAV[add - 0xFF30] = val;	// Wave Pattern RAM
+		else return;
+	}
 	else if (add < 0xFF80)
 	{
 		switch (add)
@@ -100,7 +132,6 @@ void Memory::write8(uint16_t add, uint8_t val)
 		case 0xFF06: sm83->timer.TMA = val;	break; // Timer Modulo - TODO: same as above
 		case 0xFF07: sm83->timer.TAC = val & 0x07; break;	// Timer Control
 		case 0xFF0F: sm83->interrupts.IF = val & 0x1F; break;	// Interrupt Flag
-		//case 0xFF10 ... 0xFF26: break;	// Sound - not implemented
 		case 0xFF40: {		// LCDC
 			sm83->ppu.LCDC = val;
 			if (!(val & 0x80))	// LCD off

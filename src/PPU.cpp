@@ -107,9 +107,27 @@ void PPU::oamScan()
 void PPU::renderScanline()
 {
 	if (LY >= 144) return;
-	renderScanlineBG();
-	renderScanlineWindow();
+	if (!(LCDC & 0x01))
+	{
+		renderBlankScanline();
+	} 
+	else 
+	{
+		renderScanlineBG();
+		renderScanlineWindow();
+	}
 	renderScanlineOBJ();
+}
+
+void PPU::renderBlankScanline()
+{
+	for (int x = 0; x < 160; x++)
+	{
+		frameBuffer[(LY * 160 + x) * 4] = 0xFF;
+		frameBuffer[(LY * 160 + x) * 4 + 1] = 0xFF;
+		frameBuffer[(LY * 160 + x) * 4 + 2] = 0xFF;
+		frameBuffer[(LY * 160 + x) * 4 + 3] = 0xFF;
+	}
 }
 
 void PPU::renderScanlineBG()
@@ -150,6 +168,7 @@ void PPU::renderScanlineBG()
 			colorNum |= (data1 >> colorBit) & 0x01;
 
 			Color color = COLORS[(BGP >> (colorNum * 2)) & 0x03];
+			colorVals[x] = colorNum;
 
 			frameBuffer[(LY * 160 + x) * 4] = color.r;
 			frameBuffer[(LY * 160 + x) * 4 + 1] = color.g;
@@ -200,6 +219,7 @@ void PPU::renderScanlineWindow()
 	 		colorNum |= (data1 >> colorBit) & 0x01;
 	
 	 		Color color = COLORS[(BGP >> (colorNum * 2)) & 0x03];
+			colorVals[x] = colorNum == 0 ? colorVals[x] : colorNum;
 	
 	 		frameBuffer[(LY * 160 + x) * 4] = color.r;
 	 		frameBuffer[(LY * 160 + x) * 4 + 1] = color.g;
@@ -232,7 +252,7 @@ void PPU::renderScanlineOBJ()
 				uint8_t colorNum = ((sm83->memory->read8(tileAddr + (y % 8) * 2 + 1) >> colorBit) & 0x01) << 1;
 				colorNum |= (sm83->memory->read8(tileAddr + (y % 8) * 2) >> colorBit) & 0x01;
 
-				if (colorNum == 0)
+				if (colorNum == 0 || ((obj.flags & 0x80) && colorVals[obj.x - 8 + k]))
 					continue;
 
 				Color color = COLORS[(obj.flags & 0x10) ? ((OBP1 >> (colorNum * 2)) & 0x03) : ((OBP0 >> (colorNum * 2)) & 0x03)];

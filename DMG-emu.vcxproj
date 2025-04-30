@@ -134,35 +134,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DMG.cpp" />
-    <ClCompile Include="DMG-emu.cpp" />
-    <ClCompile Include="Instructions.cpp" />
-    <ClCompile Include="InstructionsCB.cpp" />
-    <ClCompile Include="InstructionSet.cpp" />
-    <ClCompile Include="Interrupts.cpp" />
-    <ClCompile Include="Joypad.cpp" />
-    <ClCompile Include="PPU.cpp" />
-    <ClCompile Include="MBC0.cpp" />
-    <ClCompile Include="MBC1.cpp" />
-    <ClCompile Include="Memory.cpp" />
-    <ClCompile Include="Registers.cpp" />
-    <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="SM83.cpp" />
-    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="src\Audio.cpp" />
+    <ClCompile Include="src\DMG-emu.cpp" />
+    <ClCompile Include="src\DMG.cpp" />
+    <ClCompile Include="src\Instructions.cpp" />
+    <ClCompile Include="src\InstructionsCB.cpp" />
+    <ClCompile Include="src\InstructionSet.cpp" />
+    <ClCompile Include="src\Interrupts.cpp" />
+    <ClCompile Include="src\Joypad.cpp" />
+    <ClCompile Include="src\MBC0.cpp" />
+    <ClCompile Include="src\MBC1.cpp" />
+    <ClCompile Include="src\Memory.cpp" />
+    <ClCompile Include="src\PPU.cpp" />
+    <ClCompile Include="src\Registers.cpp" />
+    <ClCompile Include="src\Renderer.cpp" />
+    <ClCompile Include="src\SM83.cpp" />
+    <ClCompile Include="src\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DMG.h" />
-    <ClInclude Include="Instructions.h" />
-    <ClInclude Include="Interrupts.h" />
-    <ClInclude Include="Joypad.h" />
-    <ClInclude Include="PPU.h" />
-    <ClInclude Include="MBC0.h" />
-    <ClInclude Include="MBC1.h" />
-    <ClInclude Include="Memory.h" />
-    <ClInclude Include="Registers.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="SM83.h" />
-    <ClInclude Include="Timer.h" />
+    <ClInclude Include="src\Audio.h" />
+    <ClInclude Include="src\DMG.h" />
+    <ClInclude Include="src\Instructions.h" />
+    <ClInclude Include="src\Interrupts.h" />
+    <ClInclude Include="src\Joypad.h" />
+    <ClInclude Include="src\MBC0.h" />
+    <ClInclude Include="src\MBC1.h" />
+    <ClInclude Include="src\Memory.h" />
+    <ClInclude Include="src\PPU.h" />
+    <ClInclude Include="src\Registers.h" />
+    <ClInclude Include="src\Renderer.h" />
+    <ClInclude Include="src\SM83.h" />
+    <ClInclude Include="src\Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

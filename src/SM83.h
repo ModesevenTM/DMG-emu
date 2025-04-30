@@ -6,6 +6,7 @@
 #include "Timer.h"
 #include "Joypad.h"
 #include "PPU.h"
+#include "Audio.h"
 
 class SM83
 {
@@ -17,6 +18,7 @@ public:
 	Timer timer;
 	Joypad joypad;
 	PPU ppu;
+	Audio apu;
 
 	bool halted = false;
 	bool ended = false;
