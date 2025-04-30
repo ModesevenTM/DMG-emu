@@ -51,7 +51,7 @@ public:
 
 	std::queue<Object> objQueue;
 	uint8_t frameBuffer[160 * 144 * 4] = {};
-	uint8_t colorVals[160 * 144] = {};
+	uint8_t colorVals[160] = {};
 
 	SM83* sm83;
 
