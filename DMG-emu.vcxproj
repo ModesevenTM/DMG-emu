@@ -144,6 +144,7 @@
     <ClCompile Include="src\Joypad.cpp" />
     <ClCompile Include="src\MBC0.cpp" />
     <ClCompile Include="src\MBC1.cpp" />
+    <ClCompile Include="src\MBC2.cpp" />
     <ClCompile Include="src\Memory.cpp" />
     <ClCompile Include="src\PPU.cpp" />
     <ClCompile Include="src\Registers.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="src\Joypad.h" />
     <ClInclude Include="src\MBC0.h" />
     <ClInclude Include="src\MBC1.h" />
+    <ClInclude Include="src\MBC2.h" />
     <ClInclude Include="src\Memory.h" />
     <ClInclude Include="src\PPU.h" />
     <ClInclude Include="src\Registers.h" />

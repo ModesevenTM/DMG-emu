@@ -6,6 +6,7 @@
 #include "Memory.h"
 #include "MBC0.h"
 #include "MBC1.h"
+#include "MBC2.h"
 #include "SM83.h"
 #include "PPU.h"
 #include "Renderer.h"
@@ -21,6 +22,7 @@ public:
 	Renderer* renderer = nullptr;
 	uint8_t romBanks;
 	uint8_t ramBanks;
+	uint8_t mbc;
 	uint8_t* exram = nullptr;
 
 	std::string title;
@@ -31,5 +33,6 @@ public:
 	void start();
 	void printInfo();
 	void saveGame();
+	void printMBCType();
 };
 

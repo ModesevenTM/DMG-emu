@@ -60,15 +60,21 @@ DMG::DMG(std::string file)
 		break;
 	}
 
+	mbc = rom[0x147];
+
 	// load savefile if the game supports it
 	if (ramBanks)
-	{
 		exram = new uint8_t[ramBanks * 0x2000];
+	else if (mbc == 0x05 || mbc == 0x06)
+		exram = new uint8_t[0x200];
 
+	if(exram)
+	{
 		std::ifstream saveFile(title, std::ios::binary);
+		int exramCapacity = mbc == 0x05 || mbc == 0x06 ? 0x200 : ramBanks * 0x2000;
 		if (saveFile.is_open())
 		{
-			saveFile.read((char*)exram, (unsigned long)ramBanks * 0x2000);
+			saveFile.read((char*)exram, exramCapacity);
 			saveFile.close();
 		}
 	}
@@ -85,6 +91,10 @@ DMG::DMG(std::string file)
 	case 0x02:	// MBC1 + RAM
 	case 0x03:	// MBC1 + RAM + BATTERY
 		memory = new MBC1(rom, romBanks, ramBanks, exram);
+		break;
+	case 0x05:	// MBC2
+	case 0x06:	// MBC2 + BATTERY
+		memory = new MBC2(rom, romBanks, ramBanks, exram);
 		break;
 	default:
 		throw std::runtime_error("Unsupported MBC type");
@@ -128,22 +138,59 @@ void DMG::printInfo()
 	std::cout << "Title: " << title << std::endl;
 	std::cout << "ROM banks: " << (int)romBanks << std::endl;
 	std::cout << "RAM banks: " << (int)ramBanks << std::endl;
-	std::cout << "MBC type: " << (int)memory->rom[0x147] << std::endl;
+	printMBCType();
 }
 
 void DMG::saveGame()
 {
-	if (ramBanks && exram)
+	if (exram)
 	{
 		std::ofstream saveFile(title, std::ios::binary);
+		int exramCapacity = mbc == 0x05 || mbc == 0x06 ? 0x200 : ramBanks * 0x2000;
 		if (saveFile.is_open())
 		{
-			saveFile.write((char*)exram, (unsigned long)ramBanks * 0x2000);
+			saveFile.write((char*)exram, exramCapacity);
 			saveFile.close();
 		}
 		else
 		{
 			std::cerr << "Could not save game" << std::endl;
 		}
+	}
+}
+
+void DMG::printMBCType()
+{
+	std::cout << "MBC type: 0x" << std::hex << (int)mbc << " - ";
+	switch (mbc)
+	{
+
+	case 0x00:	// MBC0
+		std::cout << "MBC0" << std::endl;
+		break;
+	case 0x08:	// MBC0 + RAM 
+		std::cout << "MBC0 + RAM" << std::endl;
+		break;
+	case 0x09:	// MBC0 + RAM + BATTERY
+		std::cout << "MBC0 + RAM + BATTERY" << std::endl;
+		break;
+	case 0x01:	// MBC1
+		std::cout << "MBC1" << std::endl;
+		break;
+	case 0x02:	// MBC1 + RAM
+		std::cout << "MBC1 + RAM" << std::endl;
+		break;
+	case 0x03:	// MBC1 + RAM + BATTERY
+		std::cout << "MBC1 + RAM + BATTERY" << std::endl;
+		break;
+	case 0x05:	// MBC2
+		std::cout << "MBC2" << std::endl;
+		break;
+	case 0x06:	// MBC2 + BATTERY
+		std::cout << "MBC2 + BATTERY" << std::endl;
+		break;
+	default:
+		std::cout << "unknown/not implemented MBC type" << std::endl;
+		break;
 	}
 }
