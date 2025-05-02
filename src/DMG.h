@@ -21,6 +21,7 @@ public:
 	Renderer* renderer = nullptr;
 	uint8_t romBanks;
 	uint8_t ramBanks;
+	uint8_t* exram = nullptr;
 
 	std::string title;
 
@@ -29,5 +30,6 @@ public:
 
 	void start();
 	void printInfo();
+	void saveGame();
 };
 

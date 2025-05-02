@@ -3,7 +3,7 @@
 class MBC1 : public Memory
 {
 public:
-	MBC1(uint8_t* rom, uint8_t romBanks, uint8_t ramBanks);
+	MBC1(uint8_t* rom, uint8_t romBanks, uint8_t ramBanks, uint8_t* exram);
 	~MBC1();
 	uint8_t read8(uint16_t add);
 	void write8(uint16_t add, uint8_t val);

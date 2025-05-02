@@ -60,6 +60,19 @@ DMG::DMG(std::string file)
 		break;
 	}
 
+	// load savefile if the game supports it
+	if (ramBanks)
+	{
+		exram = new uint8_t[ramBanks * 0x2000];
+
+		std::ifstream saveFile(title, std::ios::binary);
+		if (saveFile.is_open())
+		{
+			saveFile.read((char*)exram, (unsigned long)ramBanks * 0x2000);
+			saveFile.close();
+		}
+	}
+
 	// MBC type
 	switch (rom[0x147])
 	{
@@ -71,12 +84,12 @@ DMG::DMG(std::string file)
 	case 0x01:	// MBC1
 	case 0x02:	// MBC1 + RAM
 	case 0x03:	// MBC1 + RAM + BATTERY
-		memory = new MBC1(rom, romBanks, ramBanks);
+		memory = new MBC1(rom, romBanks, ramBanks, exram);
 		break;
 	default:
 		throw std::runtime_error("Unsupported MBC type");
 		break;
-	}
+	}	
 
 	sm83 = new SM83(memory);
 	renderer = new Renderer(&sm83->ppu);
@@ -106,6 +119,8 @@ void DMG::start()
 		}
 		sm83->joypad.step();
 	}
+
+	saveGame();
 }
 
 void DMG::printInfo()
@@ -114,4 +129,21 @@ void DMG::printInfo()
 	std::cout << "ROM banks: " << (int)romBanks << std::endl;
 	std::cout << "RAM banks: " << (int)ramBanks << std::endl;
 	std::cout << "MBC type: " << (int)memory->rom[0x147] << std::endl;
+}
+
+void DMG::saveGame()
+{
+	if (ramBanks && exram)
+	{
+		std::ofstream saveFile(title, std::ios::binary);
+		if (saveFile.is_open())
+		{
+			saveFile.write((char*)exram, (unsigned long)ramBanks * 0x2000);
+			saveFile.close();
+		}
+		else
+		{
+			std::cerr << "Could not save game" << std::endl;
+		}
+	}
 }
