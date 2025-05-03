@@ -36,7 +36,7 @@ void MBC2::write8(uint16_t add, uint8_t val)
 	}
 	else if (add >= 0xA000 && add < 0xC000)
 		if (RAMG == 0x0A)
-			exram[(add - 0xA000) % 0x200] = val & 0x0F; // check if RAM enabled
+			exram[(add - 0xA000) % 0x200] = val & 0x0F;
 		else
 			return;
 	else

@@ -75,6 +75,9 @@
     <ClCompile Include="src\MBC2.cpp">
       <Filter>Pliki źródłowe\Memory</Filter>
     </ClCompile>
+    <ClCompile Include="src\MBC3.cpp">
+      <Filter>Pliki źródłowe\Memory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Audio.h">
@@ -117,6 +120,9 @@
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
     <ClInclude Include="src\MBC2.h">
+      <Filter>Pliki nagłówkowe\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MBC3.h">
       <Filter>Pliki nagłówkowe\Memory</Filter>
     </ClInclude>
   </ItemGroup>

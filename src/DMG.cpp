@@ -96,6 +96,13 @@ DMG::DMG(std::string file)
 	case 0x06:	// MBC2 + BATTERY
 		memory = new MBC2(rom, romBanks, ramBanks, exram);
 		break;
+	case 0x0F:	// MBC3 + TIMER + BATTERY
+	case 0x10:	// MBC3 + TIMER + RAM + BATTERY
+	case 0x11:	// MBC3
+	case 0x12:	// MBC3 + RAM
+	case 0x13:	// MBC3 + RAM + BATTERY
+		memory = new MBC3(rom, romBanks, ramBanks, exram);
+		break;
 	default:
 		throw std::runtime_error("Unsupported MBC type");
 		break;
@@ -188,6 +195,21 @@ void DMG::printMBCType()
 		break;
 	case 0x06:	// MBC2 + BATTERY
 		std::cout << "MBC2 + BATTERY" << std::endl;
+		break;
+	case 0x0F:	// MBC3 + TIMER + BATTERY
+		std::cout << "MBC3 + TIMER + BATTERY" << std::endl;
+		break;
+	case 0x10:	// MBC3 + TIMER + RAM + BATTERY
+		std::cout << "MBC3 + TIMER + RAM + BATTERY" << std::endl;
+		break;
+	case 0x11:	// MBC3
+		std::cout << "MBC3" << std::endl;
+		break;
+	case 0x12:	// MBC3 + RAM
+		std::cout << "MBC3 + RAM" << std::endl;
+		break;
+	case 0x13:	// MBC3 + RAM + BATTERY
+		std::cout << "MBC3 + RAM + BATTERY" << std::endl;
 		break;
 	default:
 		std::cout << "unknown/not implemented MBC type" << std::endl;

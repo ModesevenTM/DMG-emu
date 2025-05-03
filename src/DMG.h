@@ -7,6 +7,7 @@
 #include "MBC0.h"
 #include "MBC1.h"
 #include "MBC2.h"
+#include "MBC3.h"
 #include "SM83.h"
 #include "PPU.h"
 #include "Renderer.h"
