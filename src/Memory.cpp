@@ -29,15 +29,15 @@ uint8_t Memory::read8(uint16_t add)
 	else if (add >= 0xFF10 && add <= 0xFF3F) // Sound
 	{
 		if (add >= 0xFF10 && add <= 0xFF14)
-			return sm83->apu.NR1[add - 0xFF10];	// Channel 1
+			return sm83->apu.NR[1][add - 0xFF10];	// Channel 1
 		else if (add >= 0xFF16 && add <= 0xFF19)
-			return sm83->apu.NR2[add - 0xFF16];	// Channel 2
+			return sm83->apu.NR[2][add - 0xFF15];	// Channel 2
 		else if (add >= 0xFF1A && add <= 0xFF1E)
-			return sm83->apu.NR3[add - 0xFF1A];	// Channel 3
+			return sm83->apu.NR[3][add - 0xFF1A];	// Channel 3
 		else if (add >= 0xFF20 && add <= 0xFF23)
-			return sm83->apu.NR4[add - 0xFF20];	// Channel 4
+			return sm83->apu.NR[4][add - 0xFF1F];	// Channel 4
 		else if (add >= 0xFF24 && add <= 0xFF26)
-			return sm83->apu.NR5[add - 0xFF24];	// Control registers
+			return sm83->apu.NR[5][add - 0xFF24];	// Control registers
 		else if (add >= 0xFF30 && add <= 0xFF3F)
 			return sm83->apu.WAV[add - 0xFF30];	// Wave Pattern RAM
 		else
@@ -106,19 +106,23 @@ void Memory::write8(uint16_t add, uint8_t val)
 		return;						// not usable
 	else if (add >= 0xFF10 && add <= 0xFF3F) // Sound
 	{
+		sm83->apu.lock_audio_dev();
+		sm83->apu.channel_update(add, val);
+
 		if (add >= 0xFF10 && add <= 0xFF14)
-			sm83->apu.NR1[add - 0xFF10] = val;	// Channel 1
+			sm83->apu.NR[1][add - 0xFF10] = val;	// Channel 1
 		else if (add >= 0xFF16 && add <= 0xFF19)
-			sm83->apu.NR2[add - 0xFF16] = val;	// Channel 2
+			sm83->apu.NR[2][add - 0xFF15] = val;	// Channel 2
 		else if (add >= 0xFF1A && add <= 0xFF1E)
-			sm83->apu.NR3[add - 0xFF1A] = val;	// Channel 3
+			sm83->apu.NR[3][add - 0xFF1A] = val;	// Channel 3
 		else if (add >= 0xFF20 && add <= 0xFF23)
-			sm83->apu.NR4[add - 0xFF20] = val;	// Channel 4
+			sm83->apu.NR[4][add - 0xFF1F] = val;	// Channel 4
 		else if (add >= 0xFF24 && add <= 0xFF26)
-			sm83->apu.NR5[add - 0xFF24] = val;	// Control registers
+			sm83->apu.NR[5][add - 0xFF24] = val;	// Control registers
 		else if (add >= 0xFF30 && add <= 0xFF3F)
 			sm83->apu.WAV[add - 0xFF30] = val;	// Wave Pattern RAM
-		else return;
+
+		sm83->apu.unlock_audio_dev();
 	}
 	else if (add < 0xFF80)
 	{
