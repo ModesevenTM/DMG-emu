@@ -1,7 +1,7 @@
 #include "MBC3.h"
 #include <algorithm>
 
-MBC3::MBC3(uint8_t* rom, uint8_t romBanks, uint8_t ramBanks, uint8_t* exram) : Memory(rom), romBanks(romBanks), ramBanks(ramBanks), exram(exram) {};
+MBC3::MBC3(uint8_t* rom, uint16_t romBanks, uint8_t ramBanks, uint8_t* exram) : Memory(rom), romBanks(romBanks), ramBanks(ramBanks), exram(exram) {};
 
 MBC3::~MBC3()
 {
@@ -43,7 +43,7 @@ void MBC3::write8(uint16_t add, uint8_t val)
 	if (add < 0x2000)
 		RAMG = val & 0x0F;
 	else if (add < 0x4000)
-		ROMB = std::max(val & 0x7F, 1);
+		ROMB = std::max<uint8_t>(val, 1);
 	else if (add < 0x6000)
 		RAMB = val & 0x0F;
 	else if (add < 0x8000)

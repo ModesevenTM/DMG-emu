@@ -21,7 +21,7 @@ public:
 	Memory* memory = nullptr;
 	PPU* ppu = nullptr;
 	Renderer* renderer = nullptr;
-	uint8_t romBanks;
+	uint16_t romBanks;
 	uint8_t ramBanks;
 	uint8_t mbc;
 	uint8_t* exram = nullptr;

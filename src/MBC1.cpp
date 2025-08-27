@@ -1,7 +1,7 @@
 #include "MBC1.h"
 #include <algorithm>
 
-MBC1::MBC1(uint8_t* rom, uint8_t romBanks, uint8_t ramBanks,  uint8_t* exram) : Memory(rom), romBanks(romBanks), ramBanks(ramBanks), exram(exram) {};
+MBC1::MBC1(uint8_t* rom, uint16_t romBanks, uint8_t ramBanks,  uint8_t* exram) : Memory(rom), romBanks(romBanks), ramBanks(ramBanks), exram(exram) {};
 
 MBC1::~MBC1()
 {
