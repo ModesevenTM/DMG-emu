@@ -1,9 +1,23 @@
 #include "DMG.h"
+#include <windows.h>
+
+std::wstring static utf8_to_wstring(const std::string& str) {
+    int size_needed = MultiByteToWideChar(CP_UTF8, 0, str.c_str(), (int)str.size(), NULL, 0);
+    std::wstring wstrTo(size_needed, 0);
+    MultiByteToWideChar(CP_UTF8, 0, str.c_str(), (int)str.size(), &wstrTo[0], size_needed);
+    return wstrTo;
+}
 
 DMG::DMG(std::string file)
 {
 	uint8_t* rom;
-	std::ifstream romFile(file, std::ios::binary);
+	std::ifstream romFile;
+#ifdef _WIN32
+	std::wstring wfile = utf8_to_wstring(file);
+	romFile.open(wfile, std::ios::binary);
+#else
+	romFile.open(file, std::ios::binary);
+#endif
 	if (romFile.is_open())
 	{
 		romFile.seekg(0, std::ios::end);
@@ -70,7 +84,13 @@ DMG::DMG(std::string file)
 
 	if(exram)
 	{
-		std::ifstream saveFile(title, std::ios::binary);
+		std::ifstream saveFile;
+#ifdef _WIN32
+		std::wstring wtitle = utf8_to_wstring(title);
+		saveFile.open(wtitle, std::ios::binary);
+#else
+		saveFile.open(title, std::ios::binary);
+#endif
 		int exramCapacity = mbc == 0x05 || mbc == 0x06 ? 0x200 : ramBanks * 0x2000;
 		if (saveFile.is_open())
 		{
@@ -152,7 +172,13 @@ void DMG::saveGame()
 {
 	if (exram)
 	{
-		std::ofstream saveFile(title, std::ios::binary);
+		std::ofstream saveFile;
+#ifdef _WIN32
+		std::wstring wtitle = utf8_to_wstring(title);
+		saveFile.open(wtitle, std::ios::binary);
+#else
+		saveFile.open(title, std::ios::binary);
+#endif
 		int exramCapacity = mbc == 0x05 || mbc == 0x06 ? 0x200 : ramBanks * 0x2000;
 		if (saveFile.is_open())
 		{
