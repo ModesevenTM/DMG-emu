@@ -87,9 +87,11 @@ DMG::DMG(std::string file)
 		std::ifstream saveFile;
 #ifdef _WIN32
 		std::wstring wtitle = utf8_to_wstring(title);
-		saveFile.open(wtitle, std::ios::binary);
+		std::wstring savePath = L"./saves/" + wtitle;
+		saveFile.open(savePath, std::ios::binary);
 #else
-		saveFile.open(title, std::ios::binary);
+		std::string savePath = "./saves/" + title;
+		saveFile.open(savePath, std::ios::binary);
 #endif
 		int exramCapacity = mbc == 0x05 || mbc == 0x06 ? 0x200 : ramBanks * 0x2000;
 		if (saveFile.is_open())
@@ -173,11 +175,14 @@ void DMG::saveGame()
 	if (exram)
 	{
 		std::ofstream saveFile;
+		std::filesystem::create_directory("saves");
 #ifdef _WIN32
 		std::wstring wtitle = utf8_to_wstring(title);
-		saveFile.open(wtitle, std::ios::binary);
+		std::wstring savePath = L"./saves/" + wtitle;
+		saveFile.open(savePath, std::ios::binary);
 #else
-		saveFile.open(title, std::ios::binary);
+		std::string savePath = "./saves/" + title;
+		saveFile.open(savePath, std::ios::binary);
 #endif
 		int exramCapacity = mbc == 0x05 || mbc == 0x06 ? 0x200 : ramBanks * 0x2000;
 		if (saveFile.is_open())

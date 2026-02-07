@@ -364,3 +364,6 @@ FodyWeavers.xsd
 
 # SDL
 SDL2-2.30.9/
+
+# User content
+saves/
