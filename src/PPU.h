@@ -7,20 +7,20 @@ class SM83;
 class PPU
 {
 private:
-	union Color 
+	struct Color
 	{
-		struct {
-			uint8_t r, g, b, a;
-		};
-		uint8_t col[4];
+		uint8_t r;
+		uint8_t g;
+		uint8_t b;
+		uint8_t a;
 	};
 
 	struct Object
 	{
-		uint8_t& y;
-		uint8_t& x;
-		uint8_t& tileNum;
-		uint8_t& flags;
+		uint8_t y;
+		uint8_t x;
+		uint8_t tileNum;
+		uint8_t flags;
 	};
 public:
 	const int MODE_2_CHECK = 20;

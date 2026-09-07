@@ -14,7 +14,8 @@ void Joypad::keyUp(uint8_t key, uint8_t select) {
 void Joypad::step()
 {
 	SDL_Event event;
-	SDL_PollEvent(&event);
+	if (!SDL_PollEvent(&event))
+		return;
 	switch (event.type)
 	{
 	case SDL_KEYDOWN:

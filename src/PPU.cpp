@@ -155,9 +155,11 @@ void PPU::renderScanlineBG()
 
 		for (int x = 0; x < 160; x++)
 		{
-			uint8_t tileCol = (uint8_t)(SCX + x) / 8;
-			uint8_t tileNum = sm83->memory->read8(bgMap + tileRow + tileCol);
-			uint16_t tileAddr = tileData + (signedData ? (int8_t)tileNum : tileNum) * 16;
+			uint8_t tileCol = ((SCX + x) & 0xFF) / 8;
+			int16_t tileNum = sm83->memory->read8(bgMap + tileRow + tileCol);
+			if (signedData && tileNum >= 128)
+				tileNum -= 256; // direct casting to int8_t breaks MSVC's /O2 for some reason
+			uint16_t tileAddr = tileData + tileNum * 16;
 
 			uint8_t line = y % 8;
 			uint8_t data1 = sm83->memory->read8(tileAddr + line * 2);
@@ -207,8 +209,10 @@ void PPU::renderScanlineWindow()
 	 	for (int x = (WX >= 7 ? WX - 7 : 0); x < (WX >= 7 ? 160 : 160 + WX - 7); x++)
 	 	{
 	 		uint8_t tileCol = (x - WX + 7) / 8;
-	 		uint8_t tileNum = sm83->memory->read8(bgMap + tileRow + tileCol);
-	 		uint16_t tileAddr = tileData + (signedData ? (int8_t)tileNum : tileNum) * 16;
+			int16_t tileNum = sm83->memory->read8(bgMap + tileRow + tileCol);
+			if (signedData && tileNum >= 128)
+				tileNum -= 256; // direct casting to int8_t breaks MSVC's /O2 for some reason
+			uint16_t tileAddr = tileData + tileNum * 16;
 	
 	 		uint8_t line = y % 8;
 	 		uint8_t data1 = sm83->memory->read8(tileAddr + line * 2);
