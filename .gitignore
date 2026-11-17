@@ -363,7 +363,7 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # SDL
-SDL2/
+SDL3/
 
 # User content
 saves/

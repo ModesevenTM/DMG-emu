@@ -16,10 +16,11 @@ void Joypad::step()
 	SDL_Event event;
 	if (!SDL_PollEvent(&event))
 		return;
+
 	switch (event.type)
 	{
-	case SDL_KEYDOWN:
-		switch (event.key.keysym.sym)
+	case SDL_EVENT_KEY_DOWN:
+		switch (event.key.key)
 		{
 		case SDLK_RIGHT:
 			keyDown(KEY_A_RIGHT, SELECT_DPAD);
@@ -33,22 +34,22 @@ void Joypad::step()
 		case SDLK_DOWN:
 			keyDown(KEY_START_DOWN, SELECT_DPAD);
 			break;
-		case SDLK_z:
+		case SDLK_Z:
 			keyDown(KEY_A_RIGHT, SELECT_BUTTONS);
 			break;
-		case SDLK_x:
+		case SDLK_X:
 			keyDown(KEY_B_LEFT, SELECT_BUTTONS);
 			break;
-		case SDLK_n:
+		case SDLK_N:
 			keyDown(KEY_SELECT_UP, SELECT_BUTTONS);
 			break;
-		case SDLK_m:
+		case SDLK_M:
 			keyDown(KEY_START_DOWN, SELECT_BUTTONS);
 			break;
 		}
 		break;
-	case SDL_KEYUP:
-		switch (event.key.keysym.sym)
+	case SDL_EVENT_KEY_UP:
+		switch (event.key.key)
 		{
 		case SDLK_RIGHT:
 			keyUp(KEY_A_RIGHT, SELECT_DPAD);
@@ -62,21 +63,21 @@ void Joypad::step()
 		case SDLK_DOWN:
 			keyUp(KEY_START_DOWN, SELECT_DPAD);
 			break;
-		case SDLK_z:
+		case SDLK_Z:
 			keyUp(KEY_A_RIGHT, SELECT_BUTTONS);
 			break;
-		case SDLK_x:
+		case SDLK_X:
 			keyUp(KEY_B_LEFT, SELECT_BUTTONS);
 			break;
-		case SDLK_n:
+		case SDLK_N:
 			keyUp(KEY_SELECT_UP, SELECT_BUTTONS);
 			break;
-		case SDLK_m:
+		case SDLK_M:
 			keyUp(KEY_START_DOWN, SELECT_BUTTONS);
 			break;
 		}
 		break;
-	case SDL_QUIT:
+	case SDL_EVENT_QUIT:
 		sm83->ended = true;
 		break;
 	}

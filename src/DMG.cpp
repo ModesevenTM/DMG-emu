@@ -157,6 +157,7 @@ void DMG::start()
 			renderer->render();
 		}
 		sm83->joypad.step();
+		sm83->apu.step();
 	}
 
 	saveGame();

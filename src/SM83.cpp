@@ -11,6 +11,7 @@ SM83::SM83(Memory* memory) : memory(memory) {
 	ppu.sm83 = this;
 	memory->sm83 = this;
 	joypad.sm83 = this;
+	apu.sm83 = this;
 };
 
 void SM83::step() {
